@@ -1,5 +1,7 @@
-DROP TABLE IF EXISTS `leaf_alloc`;
+----- MYSQL建库脚本 -----
 
+--创建 leaf_alloc 表
+DROP TABLE IF EXISTS `leaf_alloc`;
 CREATE TABLE `leaf_alloc` (
   `biz_tag` varchar(128)  NOT NULL DEFAULT '',
   `max_id` bigint(20) NOT NULL DEFAULT '1',
