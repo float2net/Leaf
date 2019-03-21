@@ -5,7 +5,7 @@
     <groupId>com.sankuai.inf.leaf</groupId>
     <artifactId>leaf-parent</artifactId>
     <packaging>pom</packaging>
-    <version>1.0.1</version>
+    <version>1.0.1-zxelec</version>
     <name>Leaf</name>
     <modules>
         <module>leaf-core</module>
@@ -57,7 +57,7 @@
             <dependency>
                 <groupId>com.sankuai.inf.leaf</groupId>
                 <artifactId>leaf-core</artifactId>
-                <version>1.0.1</version>
+                <version>1.0.1-zxelec</version>
             </dependency>
             <dependency>
                 <groupId>com.alibaba</groupId>
