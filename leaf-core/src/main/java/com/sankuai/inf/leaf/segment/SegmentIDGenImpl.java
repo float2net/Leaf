@@ -120,8 +120,7 @@ public class SegmentIDGenImpl implements IDGen {
         }
     }
 
-    @Override
-    public Result get(final String key) {
+    private Result getId(final String key) {
         if (!initOK) {
             return new Result(EXCEPTION_ID_IDCACHE_INIT_FALSE, Status.EXCEPTION);
         }
@@ -143,6 +142,33 @@ public class SegmentIDGenImpl implements IDGen {
             return getIdFromSegmentBuffer(cache.get(key));
         }
         return new Result(EXCEPTION_ID_KEY_NOT_EXISTS, Status.EXCEPTION);
+    }
+
+
+    /**
+     * 取指定key对应的下一个id，如果没有该key，则在插入一条新的LeafAlloc记录
+     *
+     * @param key
+     * @return
+     */
+    @Override
+    public Result get(final String key) {
+        if (!initOK) {
+            return new Result(EXCEPTION_ID_IDCACHE_INIT_FALSE, Status.EXCEPTION);
+        }
+
+        // 如果当前缓存中没有该key, 则自动添加新的key到数据库，并刷新缓存
+        if (!cache.containsKey(key)) {
+            LeafAlloc leafAlloc = new LeafAlloc();
+            leafAlloc.setKey(key);
+            leafAlloc.setMaxId(1000);
+            leafAlloc.setStep(1000);
+            dao.insertAndGetLeafAlloc(leafAlloc);
+
+            updateCacheFromDb();
+        }
+
+        return getId(key);
     }
 
     public void updateSegmentFromDb(String key, Segment segment) {

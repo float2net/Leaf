@@ -9,4 +9,12 @@ public interface IDAllocDao {
      LeafAlloc updateMaxIdAndGetLeafAlloc(String tag);
      LeafAlloc updateMaxIdByCustomStepAndGetLeafAlloc(LeafAlloc leafAlloc);
      List<String> getAllTags();
+
+     /**
+      * 插入一条新的LeafAlloc记录.
+      *
+      * @param leafAlloc:
+      * @return 返回插入的LeafAlloc，失败则返回null
+      */
+     LeafAlloc insertAndGetLeafAlloc(LeafAlloc leafAlloc);
 }

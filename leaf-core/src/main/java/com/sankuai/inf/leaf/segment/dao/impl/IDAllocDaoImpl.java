@@ -71,4 +71,21 @@ public class IDAllocDaoImpl implements IDAllocDao {
             sqlSession.close();
         }
     }
+
+    /**
+     *  (non-Javadoc)
+     *  @see com.sankuai.inf.leaf.segment.dao.IDAllocDao#insertAndGetLeafAlloc(LeafAlloc)
+     */
+    @Override
+    public LeafAlloc insertAndGetLeafAlloc(LeafAlloc leafAlloc) {
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        try {
+            sqlSession.update("com.sankuai.inf.leaf.segment.dao.IDAllocMapper.insertLeafAlloc", leafAlloc);
+            LeafAlloc result = sqlSession.selectOne("com.sankuai.inf.leaf.segment.dao.IDAllocMapper.getLeafAlloc", leafAlloc.getKey());
+            sqlSession.commit();
+            return result;
+        } finally {
+            sqlSession.close();
+        }
+    }
 }
